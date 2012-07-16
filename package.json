@@ -1,8 +1,9 @@
 {
   "name": "qrcode-npm",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "QRCode Generator for JavaScript",
   "main": "qrcode.js",
+  "homepage": "https://github.com/cmanzana/qrcode-npm",
   "scripts": {
     "test": "tap test/*.js"
   },
@@ -16,6 +17,6 @@
   "devDependencies": {
     "tap": ""
   },
-  "author": "Kazuhiko Arase",
+  "author": "Carlos Manzanares <carlos.manzanares+npm@gmail.com>",
   "license": "MIT"
 }
