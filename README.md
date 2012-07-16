@@ -4,7 +4,9 @@ qrcode-npm
 This is an npm module for qrcode JavaScript library (http://www.d-project.com/qrcode)
 
 Notice that I am not the author of the code, I am just simply creating an npm module out of the great library from Kazuhiko Arase
-Notice also that there is another module (node-qrcode, see: https://github.com/soldair/node-qrcode), which is more sophisticated and uses canvas object (qrcode-npm uses img or table tags, which is more friendly to older browsers)
+Notice also that there is another module (node-qrcode, see: https://github.com/soldair/node-qrcode), which is more sophisticated and uses canvas object:
+* qrcode-npm uses img or table tags, which is more friendly to older browsers
+* if you know your target browser is canvas capable then I recommend using node-qrcode module
 
 examples
 --------
