@@ -1,5 +1,5 @@
 {
-  "name": "qrcode",
+  "name": "qrcode-npm",
   "version": "0.0.1",
   "description": "QRCode Generator for JavaScript",
   "main": "qrcode.js",
