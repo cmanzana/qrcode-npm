@@ -4,7 +4,7 @@
   "description": "QRCode Generator for JavaScript",
   "main": "qrcode.js",
   "scripts": {
-    "test": "test"
+    "test": "tap test/*.js"
   },
   "repository": {
     "type": "git",
@@ -13,6 +13,9 @@
   "keywords": [
     "qrcode"
   ],
+  "devDependencies": {
+    "tap": ""
+  },
   "author": "Kazuhiko Arase",
   "license": "MIT"
 }
