@@ -1,6 +1,6 @@
 {
   "name": "qrcode-npm",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "QRCode Generator for JavaScript",
   "main": "qrcode.js",
   "homepage": "https://github.com/cmanzana/qrcode-npm",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cmanzana/qrcode-npm"
+    "url": "git@github.com:cmanzana/qrcode-npm.git"
   },
   "keywords": [
     "qrcode"

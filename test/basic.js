@@ -1,6 +1,6 @@
 var tap = require('tap');
 
-var qrcode = require('../');
+var qrcode = require('../qrcode');
 
 tap.test('basic', function(t) {
   var text = 'Hello World';
