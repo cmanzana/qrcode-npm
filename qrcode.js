@@ -444,7 +444,7 @@ exports.qrcode = function() {
 			return qrHtml;
 		};
 
-		_this.createImgTag = function(cellSize, margin) {
+		_this.createImgJSON = function(cellSize, margin) {
 
 			cellSize = cellSize || 2;
 			margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
@@ -453,7 +453,7 @@ exports.qrcode = function() {
 			var min = margin;
 			var max = size - margin;
 
-			return createImgTag(size, size, function(x, y) {
+			var img = createImg(size, size, function(x, y) {
 				if (min <= x && x < max && min <= y && y < max) {
 					var c = Math.floor( (x - min) / cellSize);
 					var r = Math.floor( (y - min) / cellSize);
@@ -462,7 +462,20 @@ exports.qrcode = function() {
 					return 1;
 				}
 			} );
+
+      return {
+        attr: {
+          width: size,
+          height: size
+        },
+        src: img
+      } 
 		};
+
+    _this.createImgTag = function(cellsize, margin){
+      var json = this.createImgJSON(cellsize, margin);
+      return createImgTag(json.attr.width, json.attr.height, json.src);
+    };
 
 		return _this;
 	};
@@ -1586,8 +1599,7 @@ exports.qrcode = function() {
 		return _this;
 	};
 
-	var createImgTag = function(width, height, getPixel, alt) {
-
+  var createImg = function(width, height, getPixel){
 		var gif = gifImage(width, height);
 		for (var y = 0; y < height; y += 1) {
 			for (var x = 0; x < width; x += 1) {
@@ -1605,11 +1617,15 @@ exports.qrcode = function() {
 		}
 		base64.flush();
 
+    return 'data:image/gif;base64,' + base64;
+  };
+
+	var createImgTag = function(width, height, src, alt) {
+
 		var img = '';
 		img += '<img';
 		img += '\u0020src="';
-		img += 'data:image/gif;base64,';
-		img += base64;
+		img += src;
 		img += '"';
 		img += '\u0020width="';
 		img += width;
