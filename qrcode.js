@@ -444,7 +444,7 @@ exports.qrcode = function() {
 			return qrHtml;
 		};
 
-		_this.createImgJSON = function(cellSize, margin) {
+		_this.createImg = function(cellSize, margin) {
 
 			cellSize = cellSize || 2;
 			margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
@@ -464,7 +464,7 @@ exports.qrcode = function() {
 			} );
 
       return {
-        attr: {
+        attributes: {
           width: size,
           height: size
         },
@@ -473,8 +473,8 @@ exports.qrcode = function() {
 		};
 
     _this.createImgTag = function(cellsize, margin){
-      var json = this.createImgJSON(cellsize, margin);
-      return createImgTag(json.attr.width, json.attr.height, json.src);
+      var img = this.createImg(cellsize, margin);
+      return createImgTag(img.attributes.width, img.attributes.height, img.src);
     };
 
 		return _this;
