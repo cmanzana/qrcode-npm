@@ -444,7 +444,7 @@ exports.qrcode = function() {
 			return qrHtml;
 		};
 
-		_this.createImgTag = function(cellSize, margin) {
+		_this.createImg = function(cellSize, margin) {
 
 			cellSize = cellSize || 2;
 			margin = (typeof margin == 'undefined')? cellSize * 4 : margin;
@@ -453,7 +453,7 @@ exports.qrcode = function() {
 			var min = margin;
 			var max = size - margin;
 
-			return createImgTag(size, size, function(x, y) {
+			var img = createImg(size, size, function(x, y) {
 				if (min <= x && x < max && min <= y && y < max) {
 					var c = Math.floor( (x - min) / cellSize);
 					var r = Math.floor( (y - min) / cellSize);
@@ -462,7 +462,18 @@ exports.qrcode = function() {
 					return 1;
 				}
 			} );
+
+      return {
+        width: size,
+        height: size,
+        src: img
+      } 
 		};
+
+    _this.createImgTag = function(cellsize, margin){
+      var img = this.createImg(cellsize, margin);
+      return createImgTag(img.width, img.height, img.src);
+    };
 
 		return _this;
 	};
@@ -1240,76 +1251,6 @@ exports.qrcode = function() {
 	};
 
 	//---------------------------------------------------------------------
-	// base64EncodeOutputStream
-	//---------------------------------------------------------------------
-
-	var base64EncodeOutputStream = function() {
-
-		var _buffer = 0;
-		var _buflen = 0;
-		var _length = 0;
-		var _base64 = '';
-
-		var _this = {};
-
-		var writeEncoded = function(b) {
-			_base64 += String.fromCharCode(encode(b & 0x3f) );
-		};
-
-		var encode = function(n) {
-			if (n < 0) {
-				// error.
-			} else if (n < 26) {
-				return 0x41 + n;
-			} else if (n < 52) {
-				return 0x61 + (n - 26);
-			} else if (n < 62) {
-				return 0x30 + (n - 52);
-			} else if (n == 62) {
-				return 0x2b;
-			} else if (n == 63) {
-				return 0x2f;
-			}
-			throw new Error('n:' + n);
-		};
-
-		_this.writeByte = function(n) {
-
-			_buffer = (_buffer << 8) | (n & 0xff);
-			_buflen += 8;
-			_length += 1;
-
-			while (_buflen >= 6) {
-				writeEncoded(_buffer >>> (_buflen - 6) );
-				_buflen -= 6;
-			}
-		};
-
-		_this.flush = function() {
-
-			if (_buflen > 0) {
-				writeEncoded(_buffer << (6 - _buflen) );
-				_buffer = 0;
-				_buflen = 0;
-			}
-
-			if (_length % 3 != 0) {
-				// padding
-				var padlen = 3 - _length % 3;
-				for (var i = 0; i < padlen; i += 1) {
-					_base64 += '=';
-				}
-			}
-		};
-
-		_this.toString = function() {
-			return _base64;
-		};
-
-		return _this;
-	};
-
-	//---------------------------------------------------------------------
 	// base64DecodeInputStream
 	//---------------------------------------------------------------------
 
@@ -1586,8 +1527,7 @@ exports.qrcode = function() {
 		return _this;
 	};
 
-	var createImgTag = function(width, height, getPixel, alt) {
-
+  var createImg = function(width, height, getPixel){
 		var gif = gifImage(width, height);
 		for (var y = 0; y < height; y += 1) {
 			for (var x = 0; x < width; x += 1) {
@@ -1598,18 +1538,17 @@ exports.qrcode = function() {
 		var b = byteArrayOutputStream();
 		gif.write(b);
 
-		var base64 = base64EncodeOutputStream();
 		var bytes = b.toByteArray();
-		for (var i = 0; i < bytes.length; i += 1) {
-			base64.writeByte(bytes[i]);
-		}
-		base64.flush();
+    var base64 = new Buffer(bytes);
+    return 'data:image/gif;base64,' + base64.toString('base64');
+  };
+
+	var createImgTag = function(width, height, src, alt) {
 
 		var img = '';
 		img += '<img';
 		img += '\u0020src="';
-		img += 'data:image/gif;base64,';
-		img += base64;
+		img += src;
 		img += '"';
 		img += '\u0020width="';
 		img += width;
