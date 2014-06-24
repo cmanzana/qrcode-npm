@@ -464,17 +464,15 @@ exports.qrcode = function() {
 			} );
 
       return {
-        attributes: {
-          width: size,
-          height: size
-        },
+        width: size,
+        height: size,
         src: img
       } 
 		};
 
     _this.createImgTag = function(cellsize, margin){
       var img = this.createImg(cellsize, margin);
-      return createImgTag(img.attributes.width, img.attributes.height, img.src);
+      return createImgTag(img.width, img.height, img.src);
     };
 
 		return _this;
