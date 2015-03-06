@@ -10,7 +10,7 @@ recommend using node-qrcode, otherwise use qrcode-npm
 
 examples
 --------
-	var qrCode = require('qrcode')
+	var qrCode = require('qrcode-npm')
 
 	var qr = qrCode.qrcode(4, 'M');
 	qr.addData(text);
