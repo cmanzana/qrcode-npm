@@ -1605,50 +1605,10 @@
 		}
 		base64.flush();
 
-		var img = '';
-		img += '<img';
-		img += '\u0020src="';
-		img += 'data:image/gif;base64,';
-		img += base64;
-		img += '"';
-		img += '\u0020width="';
-		img += width;
-		img += '"';
-		img += '\u0020height="';
-		img += height;
-		img += '"';
-		if (alt) {
-			img += '\u0020alt="';
-			img += alt;
-			img += '"';
-		}
-		img += '/>';
-
-		return img;
-	};
-
-	var createImgSource = function(width, height, getPixel, alt) {
-
-		var gif = gifImage(width, height);
-		for (var y = 0; y < height; y += 1) {
-			for (var x = 0; x < width; x += 1) {
-				gif.setPixel(x, y, getPixel(x, y) );
-			}
-		}
-
-		var b = byteArrayOutputStream();
-		gif.write(b);
-
-		var base64 = base64EncodeOutputStream();
-		var bytes = b.toByteArray();
-		for (var i = 0; i < bytes.length; i += 1) {
-			base64.writeByte(bytes[i]);
-		}
-		base64.flush();
-
 		var img = 'data:image/gif;base64,';
 		img += base64;
 		return img;
+		
 	};
 
 	//---------------------------------------------------------------------

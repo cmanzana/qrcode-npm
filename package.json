@@ -1,15 +1,15 @@
 {
-  "name": "qrcode-npm",
+  "name": "qr-code-js",
   "version": "0.0.3",
   "description": "QRCode Generator for JavaScript",
   "main": "qrcode.js",
-  "homepage": "https://github.com/cmanzana/qrcode-npm",
+  "homepage": "https://github.com/roaringbits/qrcode-npm",
   "scripts": {
     "test": "tap test/*.js"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:cmanzana/qrcode-npm.git"
+    "url": "git@github.com:roaringbits/qrcode-npm.git"
   },
   "keywords": [
     "qrcode"
@@ -17,6 +17,6 @@
   "devDependencies": {
     "tap": ""
   },
-  "author": "Carlos Manzanares <carlos.manzanares@gmail.com>",
+  "author": "Kevin Elshout <kevin@alphageek.io> - Original by Carlos Manzanares <carlos.manzanares@gmail.com>",
   "license": "MIT"
 }
