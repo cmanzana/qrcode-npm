@@ -1627,6 +1627,30 @@
 		return img;
 	};
 
+	var createImgSource = function(width, height, getPixel, alt) {
+
+		var gif = gifImage(width, height);
+		for (var y = 0; y < height; y += 1) {
+			for (var x = 0; x < width; x += 1) {
+				gif.setPixel(x, y, getPixel(x, y) );
+			}
+		}
+
+		var b = byteArrayOutputStream();
+		gif.write(b);
+
+		var base64 = base64EncodeOutputStream();
+		var bytes = b.toByteArray();
+		for (var i = 0; i < bytes.length; i += 1) {
+			base64.writeByte(bytes[i]);
+		}
+		base64.flush();
+
+		var img = 'data:image/gif;base64,';
+		img += base64;
+		return img;
+	};
+
 	//---------------------------------------------------------------------
 	// returns qrcode function.
 
